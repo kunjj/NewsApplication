@@ -15,6 +15,6 @@ class NewsActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_news)
 
         // Setting Up Bottom Navigation View.
-        binding.bottomNavigationView.setupWithNavController(binding.newsNavHostFragment.findNavController())
+//        binding.bottomNavigationView.setupWithNavController(binding.newsNavHostFragment.findNavController())
     }
 }
