@@ -14,7 +14,11 @@ class NewsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_news)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
         // Setting Up Bottom Navigation View.
-//        binding.bottomNavigationView.setupWithNavController(binding.newsNavHostFragment.findNavController())
+        binding.bottomNavigationView.setupWithNavController(binding.newsNavHostFragment.findNavController())
     }
 }

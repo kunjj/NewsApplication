@@ -1,5 +1,6 @@
 package com.example.newsapplication.models
 
+
 data class Article(
     val author: String,
     val content: String,
