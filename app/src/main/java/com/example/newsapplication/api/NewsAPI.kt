@@ -11,7 +11,7 @@ interface NewsAPI {
     suspend fun getNews(
         @Query("apikey") apikey: String = Constant.API_KEY,
         @Query("country") countryCode: String = "in",
-        @Query("page") page : Int = 1
+        @Query("page") page: Int = 1
     ): Response<News>
 
     @GET("/v2/everything")
