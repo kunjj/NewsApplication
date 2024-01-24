@@ -15,7 +15,7 @@ import com.example.newsapplication.viewmodels.NewsViewModelProviderFactory
 
 class NewsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewsBinding
-    private lateinit var newsViewModel: NewsViewModel
+    lateinit var newsViewModel: NewsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_news)
