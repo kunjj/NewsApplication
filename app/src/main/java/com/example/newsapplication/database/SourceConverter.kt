@@ -1,10 +1,10 @@
 package com.example.newsapplication.database
 
 import androidx.room.TypeConverter
+import com.example.newsapplication.models.Source
 import com.google.gson.Gson
-import javax.xml.transform.Source
 
-class Converters {
+class SourceConverter {
     @TypeConverter
     fun fromSourceToString(source: Source): String? = Gson().toJson(source) ?: null
 
