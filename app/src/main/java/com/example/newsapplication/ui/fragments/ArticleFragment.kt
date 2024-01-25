@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.newsapplication.R
 import com.example.newsapplication.databinding.FragmentArticleBinding
+import com.example.newsapplication.ui.NewsActivity
+import com.example.newsapplication.viewmodels.NewsViewModel
 
 class ArticleFragment : Fragment() {
     private lateinit var binding : FragmentArticleBinding
+    private val viewmodel : NewsViewModel by lazy { (activity as NewsActivity).newsViewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

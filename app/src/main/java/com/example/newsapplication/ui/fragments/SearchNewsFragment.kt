@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.newsapplication.R
 import com.example.newsapplication.databinding.FragmentSearchNewsBinding
+import com.example.newsapplication.ui.NewsActivity
+import com.example.newsapplication.viewmodels.NewsViewModel
 
 class SearchNewsFragment : Fragment() {
     private lateinit var binding : FragmentSearchNewsBinding
+    private val viewmodel : NewsViewModel by lazy { (activity as NewsActivity).newsViewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
