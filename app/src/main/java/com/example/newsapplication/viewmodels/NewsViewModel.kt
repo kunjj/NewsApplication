@@ -14,7 +14,11 @@ class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
     val errorMsg = MutableLiveData<String>()
     private var pageNumber = 1
 
-    fun getNews(countryCode: String) =
+    init {
+        getNews("in")
+    }
+
+    private fun getNews(countryCode: String) =
         viewModelScope.launch {
             news.postValue(Result.Loading())
             val response = newsRepository.getNews(countryCode, pageNumber)

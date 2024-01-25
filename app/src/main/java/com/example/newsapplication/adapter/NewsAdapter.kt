@@ -14,14 +14,14 @@ import com.example.newsapplication.models.Article
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
     class NewsHolder(val binding: ItemArticlePreviewBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<Article>() {
+    val differCallback = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article) =
             oldItem.url == newItem.url
 
         override fun areContentsTheSame(oldItem: Article, newItem: Article) = oldItem == newItem
     }
 
-    private val articleList = AsyncListDiffer(this, differCallback)
+    val articleList = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsHolder {
         val from = LayoutInflater.from(parent.context)
