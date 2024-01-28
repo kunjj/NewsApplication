@@ -32,6 +32,7 @@ class BreakingNewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         this.viewModel.news.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Result.Success -> {
@@ -45,10 +46,13 @@ class BreakingNewsFragment : Fragment() {
             }
         }
 
-        newsAdapter.setOnItemClickListner {
-            val bundle = Bundle().apply { putParcelable("article", it) }
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putParcelable("article", it)
+            }
             findNavController().navigate(
-                R.id.action_breakingNewsFragment_to_articleFragment, bundle
+                R.id.action_breakingNewsFragment_to_articleFragment,
+                bundle
             )
         }
     }

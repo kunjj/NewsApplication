@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapplication.R
 import com.example.newsapplication.adapter.NewsAdapter
@@ -46,7 +47,7 @@ class SearchNewsFragment : Fragment() {
             job?.cancel()
             job = MainScope().launch {
                 delay(1000)
-                if(text!!.isNotEmpty()) viewModel.searchNews(text.toString())
+                if (text!!.isNotEmpty()) viewModel.searchNews(text.toString())
             }
         }
 
@@ -58,6 +59,13 @@ class SearchNewsFragment : Fragment() {
 
                 else -> {}
             }
+        }
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putParcelable("article", it)
+            }
+            findNavController().navigate(R.id.action_searchNewsFragment_to_articleFragment, bundle)
         }
     }
 
