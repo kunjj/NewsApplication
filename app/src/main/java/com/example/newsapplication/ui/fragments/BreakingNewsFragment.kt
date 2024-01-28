@@ -19,11 +19,6 @@ class BreakingNewsFragment : Fragment() {
     private val viewModel: NewsViewModel by lazy { (activity as NewsActivity).newsViewModel }
     private lateinit var newsAdapter: NewsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

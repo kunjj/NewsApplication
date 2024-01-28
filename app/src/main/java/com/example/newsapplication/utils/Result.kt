@@ -1,9 +1,9 @@
 package com.example.newsapplication.utils
 
-sealed class Result<T>(val data: T? = null, val message: String? = null) {
-    class Success<T>(data : T) : Result<T>(data)
+sealed class Result<News>(val data: News? = null, val message: String? = null) {
+    class Success<News>(data : News) : Result<News>(data)
 
-    class Error<T>(message: String) : Result<T>(message = message)
+    class Error<News>(message: String) : Result<News>(message = message)
 
-    class Loading<T> : Result<T>()
+    class Loading<News> : Result<News>()
 }
