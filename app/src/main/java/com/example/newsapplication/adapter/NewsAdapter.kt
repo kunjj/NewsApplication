@@ -14,7 +14,7 @@ import com.example.newsapplication.models.Article
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
     class NewsHolder(val binding: ItemArticlePreviewBinding) : RecyclerView.ViewHolder(binding.root)
 
-    val differCallback = object : DiffUtil.ItemCallback<Article>() {
+    private val differCallback = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article) =
             oldItem.url == newItem.url
 
@@ -36,6 +36,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
 
     override fun getItemCount() = articleList.currentList.size
 
+    private var onItemClickListener: ((Article) -> Unit)? = null
+
     override fun onBindViewHolder(holder: NewsHolder, position: Int) {
         val article = articleList.currentList[position]
         holder.binding.apply {
@@ -48,7 +50,6 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
         }
     }
 
-    var onItemClickListener: ((Article) -> Unit)? = null
 
     fun setOnItemClickListner(listner: (Article) -> Unit) {
         onItemClickListener = listner
