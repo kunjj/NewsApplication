@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapplication.R
 import com.example.newsapplication.adapter.NewsAdapter
@@ -20,8 +21,7 @@ class BreakingNewsFragment : Fragment() {
     private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding =
@@ -35,12 +35,21 @@ class BreakingNewsFragment : Fragment() {
         this.viewModel.news.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Result.Success -> {
-                    response.data!!.let {newsResponse -> newsAdapter.articleList.submitList(newsResponse.articles) }
+                    response.data!!.let { newsResponse ->
+                        newsAdapter.articleList.submitList(
+                            newsResponse.articles
+                        )
+                    }
                 }
-
                 else -> {}
             }
+        }
 
+        newsAdapter.setOnItemClickListner {
+            val bundle = Bundle().apply { putParcelable("article", it) }
+            findNavController().navigate(
+                R.id.action_breakingNewsFragment_to_articleFragment, bundle
+            )
         }
     }
 

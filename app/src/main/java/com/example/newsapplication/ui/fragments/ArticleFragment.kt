@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.newsapplication.R
 import com.example.newsapplication.databinding.FragmentArticleBinding
 import com.example.newsapplication.ui.NewsActivity
@@ -14,11 +16,7 @@ import com.example.newsapplication.viewmodels.NewsViewModel
 class ArticleFragment : Fragment() {
     private lateinit var binding: FragmentArticleBinding
     private val viewModel: NewsViewModel by lazy { (activity as NewsActivity).newsViewModel }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val args: ArticleFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +26,15 @@ class ArticleFragment : Fragment() {
         this.binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_article, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val article = args.article
+        binding.webView.apply {
+            webViewClient = WebViewClient()
+            loadUrl(article.url)
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.newsapplication.models
 
 import android.os.Parcelable
+import androidx.navigation.NavArgs
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
@@ -18,4 +19,4 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String
-) : Parcelable
+) : Parcelable, NavArgs
