@@ -42,6 +42,7 @@ class BreakingNewsFragment : Fragment() {
                         )
                     }
                 }
+
                 else -> {}
             }
         }
