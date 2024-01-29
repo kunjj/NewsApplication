@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.R
 import com.example.newsapplication.adapter.NewsAdapter
 import com.example.newsapplication.databinding.FragmentSavedNewsBinding
 import com.example.newsapplication.ui.NewsActivity
 import com.example.newsapplication.viewmodels.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class SavedNewsFragment : Fragment() {
     private lateinit var binding: FragmentSavedNewsBinding
@@ -32,9 +35,38 @@ class SavedNewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
 
-        viewModel.getSavedArticles().observe(viewLifecycleOwner) {
-            newsAdapter.articleList.submitList(it)
+
+        viewModel.getSavedArticles().observe(viewLifecycleOwner) { articles ->
+            newsAdapter.articleList.submitList(articles)
         }
+
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                val article = newsAdapter.articleList.currentList[viewHolder.adapterPosition]
+                viewModel.deleteArticle(article)
+
+                Snackbar.make(view, "Item Deleted Successfully!", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo") {
+                        viewModel.savedArticle(article)
+                    }
+                    show()
+                }
+            }
+        }
+
+        ItemTouchHelper(itemTouchHelperCallback).apply { attachToRecyclerView(binding.rvNews) }
 
         binding.swrlNews.setOnRefreshListener {
             viewModel.getSavedArticles()
