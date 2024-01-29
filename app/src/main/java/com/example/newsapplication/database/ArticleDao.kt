@@ -13,7 +13,7 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveArticle(article: Article)
 
-    @Query("SELECT * FROM Article")
+    @Query("SELECT * FROM Article ORDER BY Article.id DESC")
     fun getSavedArticles(): LiveData<List<Article>>
 
     @Delete

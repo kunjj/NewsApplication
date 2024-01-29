@@ -36,6 +36,7 @@ class ArticleFragment : Fragment() {
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(article.url)
+            if(!article.author.isNullOrEmpty()) binding.fabBookmarkArticle.visibility = View.VISIBLE
         }
 
         binding.fabBookmarkArticle.setOnClickListener {
