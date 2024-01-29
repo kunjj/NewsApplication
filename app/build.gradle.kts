@@ -6,7 +6,6 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
 }
 
-
 android {
     namespace = "com.example.newsapplication"
     compileSdk = 34
