@@ -55,6 +55,11 @@ class BreakingNewsFragment : Fragment() {
                 bundle
             )
         }
+
+        binding.swrlNews.setOnRefreshListener {
+            viewModel.getNews("in")
+            binding.swrlNews.isRefreshing = false
+        }
     }
 
     private fun setupRecyclerView() {

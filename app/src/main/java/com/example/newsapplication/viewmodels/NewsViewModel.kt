@@ -20,7 +20,7 @@ class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
         getNews("in")
     }
 
-    private fun getNews(countryCode: String) = viewModelScope.launch {
+    fun getNews(countryCode: String) = viewModelScope.launch {
         news.postValue(Result.Loading())
         val response = newsRepository.getNews(countryCode, newsPageNumber)
         news.postValue(handleNewsResponse(response))
