@@ -42,6 +42,7 @@ class BreakingNewsFragment : Fragment() {
                         )
                     }
                 }
+
                 else -> {}
             }
         }
@@ -54,6 +55,11 @@ class BreakingNewsFragment : Fragment() {
                 R.id.action_breakingNewsFragment_to_articleFragment,
                 bundle
             )
+        }
+
+        binding.swrlNews.setOnRefreshListener {
+            viewModel.getNews("in")
+            binding.swrlNews.isRefreshing = false
         }
     }
 
