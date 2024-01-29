@@ -38,11 +38,10 @@ android {
         jvmTarget = "17"
     }
 
-    buildFeatures{
+    buildFeatures {
         //noinspection DataBindingWithoutKapt
         dataBinding = true
     }
-
 }
 
 dependencies {
