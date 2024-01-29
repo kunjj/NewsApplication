@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.newsapplication.R
 import com.example.newsapplication.databinding.ItemArticlePreviewBinding
 import com.example.newsapplication.models.Article
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
     class NewsHolder(val binding: ItemArticlePreviewBinding) : RecyclerView.ViewHolder(binding.root)
@@ -46,12 +48,20 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
             tvSource.text = article.source.name
             tvDescription.text = article.description
             tvTitle.text = article.title
-            tvPublishedAt.text = article.publishedAt
+            tvPublishedAt.text = changeDateFormat(article.publishedAt)
         }
     }
 
 
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
+    }
+
+    private fun changeDateFormat(date: String): String {
+        //Inorder to change the date format from yyyy-MM-dd to dd-MMM-yyyy.
+        val inputDateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val outputDateFormatter = SimpleDateFormat("dd-MMM-yyyy", Locale.US)
+
+        return outputDateFormatter.format(inputDateFormatter.parse(date)!!)
     }
 }
