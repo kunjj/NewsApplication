@@ -25,7 +25,7 @@ class SavedNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_search_news,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_saved_news,container,false)
         return binding.root
     }
 
