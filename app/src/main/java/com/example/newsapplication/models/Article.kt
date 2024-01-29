@@ -19,10 +19,10 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String
-) : Parcelable, NavArgs{
+) : Parcelable, NavArgs {
     override fun hashCode(): Int {
         var result = id.hashCode()
-        if(url.isNullOrEmpty()){
+        if (url.isNullOrEmpty()) {
             result = 31 * result + url.hashCode()
         }
         return result
