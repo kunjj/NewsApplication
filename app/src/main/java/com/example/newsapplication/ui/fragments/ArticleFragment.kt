@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -31,10 +32,15 @@ class ArticleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val article = args.article
+
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(article.url)
         }
-    }
 
+        binding.fabBookmarkArticle.setOnClickListener {
+            viewModel.savedArticle(article)
+            Toast.makeText(requireContext(),"Article Saved Successfully!",Toast.LENGTH_SHORT).show()
+        }
+    }
 }
