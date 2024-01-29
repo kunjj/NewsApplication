@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.newsapplication.R
+import com.example.newsapplication.databinding.FragmentSavedNewsBinding
 import com.example.newsapplication.databinding.FragmentSearchNewsBinding
 import com.example.newsapplication.ui.NewsActivity
 import com.example.newsapplication.viewmodels.NewsViewModel
 
 class SavedNewsFragment : Fragment() {
-    private lateinit var binding : FragmentSearchNewsBinding
+    private lateinit var binding : FragmentSavedNewsBinding
     private val viewModel : NewsViewModel by lazy { (activity as NewsActivity).newsViewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
