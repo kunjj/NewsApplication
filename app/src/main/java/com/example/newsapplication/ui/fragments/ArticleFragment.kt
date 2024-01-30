@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -13,6 +12,7 @@ import com.example.newsapplication.R
 import com.example.newsapplication.databinding.FragmentArticleBinding
 import com.example.newsapplication.ui.NewsActivity
 import com.example.newsapplication.viewmodels.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment() {
     private lateinit var binding: FragmentArticleBinding
@@ -36,12 +36,17 @@ class ArticleFragment : Fragment() {
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(article.url)
-            if(!article.author.isNullOrEmpty()) binding.fabBookmarkArticle.visibility = View.VISIBLE
+            if (!article.author.isNullOrEmpty()) binding.fabBookmarkArticle.visibility =
+                View.VISIBLE
         }
 
         binding.fabBookmarkArticle.setOnClickListener {
             viewModel.savedArticle(article)
-            Toast.makeText(requireContext(),"Article Saved Successfully!",Toast.LENGTH_SHORT).show()
+            Snackbar.make(
+                view,
+                getString(R.string.article_saved_successfully),
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 }
