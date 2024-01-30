@@ -45,10 +45,10 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
         holder.binding.apply {
             clArticle.setOnClickListener { onItemClickListener?.let { it(article) } }
             Glide.with(holder.itemView).load(article.urlToImage).into(ivArticleImage)
-            tvSource.text = article.source.name
+            tvSource.text = article.source!!.name
             tvDescription.text = article.description
             tvTitle.text = article.title
-            tvPublishedAt.text = changeDateFormat(article.publishedAt)
+            tvPublishedAt.text = article!!.publishedAt?.let { changeDateFormat(it) }
         }
     }
 

@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.newsapplication.models.Article
 
 
-@Database(entities = [Article::class], version = 1)
+@Database(entities = [Article::class], version = 2)
 @TypeConverters(SourceConverter::class)
 abstract class ArticleDatabase : RoomDatabase() {
     abstract fun getArticleDao(): ArticleDao

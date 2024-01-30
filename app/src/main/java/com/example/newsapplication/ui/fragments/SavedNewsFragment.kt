@@ -95,5 +95,4 @@ class SavedNewsFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
-
 }
