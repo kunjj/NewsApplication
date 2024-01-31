@@ -46,7 +46,7 @@ class SearchNewsFragment : Fragment() {
         binding.etSearchNews.addTextChangedListener { text ->
             job?.cancel()
             job = MainScope().launch {
-                delay(1000)
+                delay(750)
                 if (text!!.isNotEmpty()) viewModel.searchNews(text.toString())
             }
         }

@@ -1,7 +1,10 @@
 package com.example.newsapplication.adapter
 
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -11,6 +14,9 @@ import com.example.newsapplication.R
 import com.example.newsapplication.databinding.ItemArticlePreviewBinding
 import com.example.newsapplication.models.Article
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
@@ -42,17 +48,18 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
 
     override fun onBindViewHolder(holder: NewsHolder, position: Int) {
         val article = articleList.currentList[position]
+        Log.d("cscd",article.publishedAt.toString())
         holder.binding.apply {
             clArticle.setOnClickListener { onItemClickListener?.let { it(article) } }
             Glide.with(holder.itemView).load(article.urlToImage).into(ivArticleImage)
             tvSource.text = article.source!!.name
             tvDescription.text = article.description
             tvTitle.text = article.title
-            tvPublishedAt.text = article!!.publishedAt?.let { changeDateFormat(it) }
+            tvPublishedAt.text = "${article!!.publishedAt?.let { changeTimeFormat(it) }} | ${article!!.publishedAt?.let { changeDateFormat(it) }}"
         }
     }
 
-    fun setOnItemClickListener(listener: (Article) -> Unit) {
+    fun setOnItemClickListener(listener: (Article) -> Unit  ) {
         onItemClickListener = listener
     }
 
@@ -62,5 +69,17 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
         val outputDateFormatter = SimpleDateFormat("dd-MMM-yyyy", Locale.US)
 
         return outputDateFormatter.format(inputDateFormatter.parse(date)!!)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun changeTimeFormat(time: String): String{
+        val inputTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val outputTimeFormat = DateTimeFormatter.ofPattern("HH:mm")
+        val utcDateTime = LocalDateTime.parse(time, inputTimeFormat)
+
+        val utcInstant = utcDateTime.atZone(ZoneId.of("UTC")).toInstant()
+        val istDateTime = LocalDateTime.ofInstant(utcInstant, ZoneId.of("Asia/Kolkata"))
+
+        return istDateTime.format(outputTimeFormat)
     }
 }
