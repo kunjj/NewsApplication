@@ -51,7 +51,9 @@ class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
 
     private fun handleSearchNewsQueryResponse(response: Response<News>): Result<News> {
         if (response.isSuccessful) response.body()!!
-            .let { newsResponse -> return Result.Success(newsResponse) }
+            .let { newsResponse ->
+                newsPageNumber++
+                return Result.Success(newsResponse) }
         else return Result.Error(response.message())
     }
 }
