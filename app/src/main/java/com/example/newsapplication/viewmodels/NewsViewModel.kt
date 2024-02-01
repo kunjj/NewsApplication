@@ -11,21 +11,22 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
-    val news: MutableLiveData<Result<News>> = MutableLiveData()
-    private var newsPageNumber = 1
+    val topHeadlines: MutableLiveData<Result<News>> = MutableLiveData()
+    val topHeadlinesResponse : News? = null
+    private var topHeadlinesPageNumber = 1
 
     val searchNews: MutableLiveData<Result<News>> = MutableLiveData()
     private var searchNewsPageNumber = 1
 
     init {
-        getNews("in")
+        getTopHeadlines("in")
         getSavedArticles()
     }
 
-    fun getNews(countryCode: String) = viewModelScope.launch {
-        news.postValue(Result.Loading())
-        val response = newsRepository.getNews(countryCode, newsPageNumber)
-        news.postValue(handleNewsResponse(response))
+    fun getTopHeadlines(countryCode: String) = viewModelScope.launch {
+        topHeadlines.postValue(Result.Loading())
+        val response = newsRepository.getTopHeadlines(countryCode, topHeadlinesPageNumber)
+        topHeadlines.postValue(handleNewsResponse(response))
     }
 
     fun searchNews(searchQuery: String) = viewModelScope.launch {
@@ -45,14 +46,16 @@ class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
 
     private fun handleNewsResponse(response: Response<News>): Result<News> {
         if (response.isSuccessful) {
-            response.body()!!.let { newsResponse -> return Result.Success(newsResponse) }
+            response.body()!!.let { newsResponse ->
+                return Result.Success(newsResponse)
+            }
         } else return Result.Error(response.message())
     }
 
     private fun handleSearchNewsQueryResponse(response: Response<News>): Result<News> {
         if (response.isSuccessful) response.body()!!
             .let { newsResponse ->
-                newsPageNumber++
+                topHeadlinesPageNumber++
                 return Result.Success(newsResponse) }
         else return Result.Error(response.message())
     }

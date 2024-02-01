@@ -33,7 +33,7 @@ class BreakingNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.viewModel.news.observe(viewLifecycleOwner) { response ->
+        this.viewModel.topHeadlines.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Result.Success -> {
                     response.data!!.let { newsResponse ->
@@ -58,7 +58,7 @@ class BreakingNewsFragment : Fragment() {
         }
 
         binding.swrlNews.setOnRefreshListener {
-            viewModel.getNews("in")
+            viewModel.getTopHeadlines("in")
             binding.swrlNews.isRefreshing = false
         }
     }
