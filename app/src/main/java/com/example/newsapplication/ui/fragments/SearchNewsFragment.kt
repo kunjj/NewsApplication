@@ -54,7 +54,7 @@ class SearchNewsFragment : Fragment() {
         viewModel.searchNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Result.Success -> {
-                    newsAdapter.articleList.submitList(response.data!!.articles)
+                    newsAdapter.articleList.submitList(response.data!!.articles.toList())
                 }
 
                 else -> {}

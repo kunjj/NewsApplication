@@ -7,5 +7,6 @@
     <string name="search_news">Search News</string>
     <string name="article_saved_successfully">Article Saved Successfully!</string>
     <string name="article_deleted_successfully">Article Deleted Successfully!</string>
-    <string name="undo"><u>Undo</u>></string>
+    <string name="not_connected_to_internet">Not Connected To Internet!!</string>
+    <string name="undo"><u>Undo</u></string>
 </resources>
