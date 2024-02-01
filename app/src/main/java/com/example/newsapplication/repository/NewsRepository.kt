@@ -7,8 +7,8 @@ import com.example.newsapplication.models.Article
 class NewsRepository(val db: ArticleDatabase) {
 
     // Fetching Data From API.
-    suspend fun getNews(country: String, pageNumber: Int) =
-        RetroFitInstance.api.getNews(countryCode = country, page = pageNumber)
+    suspend fun getTopHeadlines(country: String, pageNumber: Int) =
+        RetroFitInstance.api.getTopHeadlines(countryCode = country, page = pageNumber)
 
     suspend fun searchNews(searchQuery: String) =
         RetroFitInstance.api.searchForNews(searchQuery = searchQuery)
