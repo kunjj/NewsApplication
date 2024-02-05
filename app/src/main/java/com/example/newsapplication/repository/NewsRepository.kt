@@ -4,7 +4,7 @@ import com.example.newsapplication.api.RetroFitInstance
 import com.example.newsapplication.database.ArticleDatabase
 import com.example.newsapplication.models.Article
 
-class NewsRepository(val db: ArticleDatabase) {
+class NewsRepository(private val db: ArticleDatabase) {
 
     // Fetching Data From API.
     suspend fun getTopHeadlines(country: String, pageNumber: Int) =
